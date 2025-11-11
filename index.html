@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Saúde - Gordura Corporal e RCA - INFORSAÚDE - BAHIANA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .button-group.full {
+            grid-template-columns: 1fr;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-calculate {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-calculate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-reset {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-reset:hover {
+            background: #e0e0e0;
+        }
+
+        .results {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .result-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .result-interpretation {
+            background: white;
+            padding: 12px 15px;
+            border-radius: 6px;
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .status-good {
+            border-left: 4px solid #4caf50;
+            background: #f1f8f4;
+            color: #2e7d32;
+        }
+
+        .status-warning {
+            border-left: 4px solid #ff9800;
+            background: #fff3f0;
+            color: #e65100;
+        }
+
+        .status-alert {
+            border-left: 4px solid #f44336;
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            color: #1565c0;
+            line-height: 1.7;
+        }
+
+        .info-box h3 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .formula {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            color: #333;
+            border-left: 3px solid #667eea;
+        }
+
+        .reference-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .reference-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .reference-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .reference-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .reference-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .reference-table tr:hover {
+            background: #f0f0f0;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-button {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-button.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-button:hover {
+            color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .unit-info {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .section-title {
+                font-size: 1.4em;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .reference-table {
+                font-size: 0.9em;
+            }
+
+            .reference-table th,
+            .reference-table td {
+                padding: 10px;
+            }
+        }
+
+        .disclaimer {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 30px;
+            color: #856404;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .disclaimer strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💪 Calculadora de Saúde</h1>
+            <p>Avalie sua Gordura Corporal e Índice de Relação Cintura-Altura</p>
+                    <p>Tecnólogo em Informática em Saúde - BAHIANA</p>
+
+		</div>
+
+        <div class="content">
+            <!-- Abas de navegação -->
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab('calculator')">Calculadora</button>
+                <button class="tab-button" onclick="switchTab('info')">Informações</button>
+            </div>
+
+            <!-- Aba Calculadora -->
+            <div id="calculator" class="tab-content active">
+                <!-- Seção de Informações Gerais -->
+                <div class="section">
+                    <h2 class="section-title">📋 Dados Pessoais</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="age">Idade (anos)</label>
+                            <input type="number" id="age" min="16" max="100" placeholder="Ex: 30" required>
+                            <div class="unit-info">Entre 16 e 83 anos</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gênero</label>
+                            <select id="gender" required>
+                                <option value="">Selecione...</option>
+                                <option value="male">Masculino</option>
+                                <option value="female">Feminino</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção de Medidas Antropométricas -->
+                <div class="section">
+                    <h2 class="section-title">📏 Medidas Antropométricas</h2>
+                    
+                    <div class="info-box">
+                        <h3>Como medir corretamente:</h3>
+                        <strong>Peso:</strong> Use uma balança calibrada, sem roupas pesadas.<br>
+                        <strong>Altura:</strong> Meça descalço, com a cabeça reta, encostado em uma parede.<br>
+                        <strong>Cintura:</strong> Meça na menor circunferência entre as costelas e a bacia, com o abdômen relaxado.
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="weight">Peso (kg)</label>
+                            <input type="number" id="weight" min="20" max="300" step="0.1" placeholder="Ex: 70.5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="height">Altura (cm)</label>
+                            <input type="number" id="height" min="100" max="250" step="0.1" placeholder="Ex: 175" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row full">
+                        <div class="form-group">
+                            <label for="waist">Circunferência da Cintura (cm)</label>
+                            <input type="number" id="waist" min="40" max="200" step="0.1" placeholder="Ex: 85" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botões de Ação -->
+                <div class="button-group">
+                    <button class="btn-calculate" onclick="calculateAll()">Calcular Resultados</button>
+                    <button class="btn-reset" onclick="resetForm()">Limpar Dados</button>
+                </div>
+
+                <!-- Resultados -->
+                <div id="results" class="results">
+                    <div class="result-item">
+                        <div class="result-label">📊 Índice de Massa Corporal (IMC)</div>
+                        <div class="result-value" id="imcValue">-</div>
+                        <div class="result-interpretation" id="imcInterpretation"></div>
+                    </div>
+
+                    <div class="result-item">
+                        <div class="result-label">🏃 Estimativa de Gordura Corporal</div>
+                        <div class="result-value" id="fatValue">-</div>
+                        <div class="result-interpretation" id="fatInterpretation"></div>
+                    </div>
+
+                    <div class="result-item">
+                        <div class="result-label">⚖️ Índice de Relação Cintura-Altura (RCA)</div>
+                        <div class="result-value" id="rcaValue">-</div>
+                        <div class="result-interpretation" id="rcaInterpretation"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aba Informações -->
+            <div id="info" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">📚 Sobre os Indicadores</h2>
+
+                    <h3 style="margin-top: 30px; margin-bottom: 15px; color: #333; font-size: 1.3em;">Gordura Corporal</h3>
+                    <div class="info-box">
+                        <p><strong>Fórmula utilizada:</strong> Deurenberg et al. (1991)</p>
+                        <p style="margin-top: 10px;">% G = 1,2 (IMC) + 0,23 (idade) - 10,8 (gênero) - 5,4</p>
+                        <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Onde: gênero = 1 para homens e 0 para mulheres</p>
+                    </div>
+
+                    <p style="margin: 20px 0; color: #555; line-height: 1.8;">A gordura corporal representa a proporção de gordura em relação ao peso total do corpo. É um indicador importante de saúde, pois o excesso de gordura está associado a diversas doenças crônicas como diabetes, hipertensão e problemas cardiovasculares.</p>
+
+                    <h4 style="margin: 20px 0 15px; color: #333; font-weight: 600;">Faixas de Referência por Idade (Valores Saudáveis)</h4>
+                    <table class="reference-table">
+                        <thead>
+                            <tr>
+                                <th>Idade (anos)</th>
+                                <th>Homens (%)</th>
+                                <th>Mulheres (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>15 - 24</td>
+                                <td>13,2 - 18,6%</td>
+                                <td>23,0 - 29,6%</td>
+                            </tr>
+                            <tr>
+                                <td>25 - 34</td>
+                                <td>15,3 - 21,8%</td>
+                                <td>22,9 - 29,7%</td>
+                            </tr>
+                            <tr>
+                                <td>35 - 44</td>
+                                <td>16,2 - 23,1%</td>
+                                <td>22,8 - 29,8%</td>
+                            </tr>
+                            <tr>
+                                <td>45 - 54</td>
+                                <td>17,6 - 25,1%</td>
+                                <td>23,6 - 30,6%</td>
+                            </tr>
+                            <tr>
+                                <td>55 - 65</td>
+                                <td>18,1 - 25,9%</td>
+                                <td>24,1 - 31,1%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 style="margin-top: 40px; margin-bottom: 15px; color: #333; font-size: 1.3em;">Índice de Relação Cintura-Altura (RCA)</h3>
+                    <div class="info-box">
+                        <p><strong>Fórmula:</strong></p>
+                        <p style="margin-top: 10px;">RCA = Circunferência da Cintura (cm) ÷ Altura (cm)</p>
+                    </div>
+
+                    <p style="margin: 20px 0; color: #555; line-height: 1.8;">O Índice de Relação Cintura-Altura é um indicador de distribuição de gordura corporal, especialmente a gordura abdominal. É considerado um dos melhores preditores de risco cardiometabólico, pois a gordura visceral (abdominal) está fortemente associada a doenças cardiovasculares e metabólicas.</p>
+
+                    <h4 style="margin: 20px 0 15px; color: #333; font-weight: 600;">Interpretação dos Resultados</h4>
+                    <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                        <div style="margin-bottom: 15px; padding: 12px; background: white; border-left: 4px solid #4caf50; border-radius: 4px;">
+                            <strong style="color: #2e7d32;">RCA < 0,5:</strong> Risco baixo para doenças metabólicas e cardiovasculares
+                        </div>
+                        <div style="padding: 12px; background: white; border-left: 4px solid #f44336; border-radius: 4px;">
+                            <strong style="color: #c62828;">RCA > 0,5:</strong> Risco elevado para doenças metabólicas e cardiovasculares
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 40px; margin-bottom: 15px; color: #333; font-size: 1.3em;">Índice de Massa Corporal (IMC)</h3>
+                    <div class="info-box">
+                        <p><strong>Fórmula:</strong></p>
+                        <p style="margin-top: 10px;">IMC = Peso (kg) ÷ [Altura (m)]²</p>
+                    </div>
+
+                    <h4 style="margin: 20px 0 15px; color: #333; font-weight: 600;">Classificação do IMC</h4>
+                    <table class="reference-table">
+                        <thead>
+                            <tr>
+                                <th>Classificação</th>
+                                <th>IMC (kg/m²)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Abaixo do peso</td>
+                                <td>&lt; 18,5</td>
+                            </tr>
+                            <tr>
+                                <td>Peso normal</td>
+                                <td>18,5 - 24,9</td>
+                            </tr>
+                            <tr>
+                                <td>Sobrepeso</td>
+                                <td>25,0 - 29,9</td>
+                            </tr>
+                            <tr>
+                                <td>Obesidade Grau I</td>
+                                <td>30,0 - 34,9</td>
+                            </tr>
+                            <tr>
+                                <td>Obesidade Grau II</td>
+                                <td>35,0 - 39,9</td>
+                            </tr>
+                            <tr>
+                                <td>Obesidade Grau III</td>
+                                <td>≥ 40,0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="disclaimer">
+                        <strong>⚠️ Importante:</strong>
+                        Esta calculadora é uma ferramenta educacional e não substitui a avaliação de um profissional de saúde qualificado. Os resultados devem ser interpretados em conjunto com outras informações clínicas e laboratoriais. Consulte um médico ou nutricionista para uma avaliação completa do seu estado de saúde.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            // Esconder todos os conteúdos
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remover classe active de todos os botões
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Mostrar o conteúdo selecionado
+            document.getElementById(tabName).classList.add('active');
+
+            // Adicionar classe active ao botão clicado
+            event.target.classList.add('active');
+        }
+
+        function calculateAll() {
+            const age = parseFloat(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const waist = parseFloat(document.getElementById('waist').value);
+
+            // Validação
+            if (!age || !gender || !weight || !height || !waist) {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+
+            if (age < 16 || age > 83) {
+                alert('A idade deve estar entre 16 e 83 anos!');
+                return;
+            }
+
+            // Cálculos
+            const heightM = height / 100;
+            const imc = weight / (heightM * heightM);
+            const genderValue = gender === 'male' ? 1 : 0;
+            const fatPercentage = 1.2 * imc + 0.23 * age - 10.8 * genderValue - 5.4;
+            const rca = waist / height;
+
+            // Exibir resultados
+            displayResults(imc, fatPercentage, rca, age, gender);
+        }
+
+        function displayResults(imc, fatPercentage, rca, age, gender) {
+            const resultsDiv = document.getElementById('results');
+            
+            // IMC
+            const imcValue = imc.toFixed(1);
+            const imcStatus = getIMCStatus(imc);
+            document.getElementById('imcValue').textContent = imcValue + ' kg/m²';
+            document.getElementById('imcInterpretation').innerHTML = 
+                `<div class="result-interpretation ${imcStatus.class}">${imcStatus.text}</div>`;
+
+            // Gordura Corporal
+            const fatValue = fatPercentage.toFixed(1);
+            const fatStatus = getFatStatus(fatPercentage, age, gender);
+            document.getElementById('fatValue').textContent = fatValue + '%';
+            document.getElementById('fatInterpretation').innerHTML = 
+                `<div class="result-interpretation ${fatStatus.class}">${fatStatus.text}</div>`;
+
+            // RCA
+            const rcaValue = rca.toFixed(2);
+            const rcaStatus = getRCAStatus(rca);
+            document.getElementById('rcaValue').textContent = rcaValue;
+            document.getElementById('rcaInterpretation').innerHTML = 
+                `<div class="result-interpretation ${rcaStatus.class}">${rcaStatus.text}</div>`;
+
+            // Mostrar resultados
+            resultsDiv.classList.add('show');
+        }
+
+        function getIMCStatus(imc) {
+            if (imc < 18.5) {
+                return { class: 'status-warning', text: '⚠️ Abaixo do peso. Consulte um profissional de saúde.' };
+            } else if (imc < 25) {
+                return { class: 'status-good', text: '✅ Peso normal. Parabéns! Mantenha hábitos saudáveis.' };
+            } else if (imc < 30) {
+                return { class: 'status-warning', text: '⚠️ Sobrepeso. Considere aumentar atividade física e revisar alimentação.' };
+            } else if (imc < 35) {
+                return { class: 'status-alert', text: '🚨 Obesidade Grau I. Recomenda-se consultar um profissional de saúde.' };
+            } else if (imc < 40) {
+                return { class: 'status-alert', text: '🚨 Obesidade Grau II. Consulta médica é importante.' };
+            } else {
+                return { class: 'status-alert', text: '🚨 Obesidade Grau III. Busque orientação profissional urgentemente.' };
+            }
+        }
+
+        function getFatStatus(fatPercentage, age, gender) {
+            const ranges = {
+                male: {
+                    '15-24': { min: 13.2, max: 18.6 },
+                    '25-34': { min: 15.3, max: 21.8 },
+                    '35-44': { min: 16.2, max: 23.1 },
+                    '45-54': { min: 17.6, max: 25.1 },
+                    '55-65': { min: 18.1, max: 25.9 }
+                },
+                female: {
+                    '15-24': { min: 23.0, max: 29.6 },
+                    '25-34': { min: 22.9, max: 29.7 },
+                    '35-44': { min: 22.8, max: 29.8 },
+                    '45-54': { min: 23.6, max: 30.6 },
+                    '55-65': { min: 24.1, max: 31.1 }
+                }
+            };
+
+            let ageRange = '';
+            if (age >= 15 && age <= 24) ageRange = '15-24';
+            else if (age >= 25 && age <= 34) ageRange = '25-34';
+            else if (age >= 35 && age <= 44) ageRange = '35-44';
+            else if (age >= 45 && age <= 54) ageRange = '45-54';
+            else if (age >= 55 && age <= 65) ageRange = '55-65';
+            else if (age > 65) ageRange = '55-65'; // Usar a faixa mais próxima
+
+            const genderKey = gender === 'male' ? 'male' : 'female';
+            const range = ranges[genderKey][ageRange];
+
+            if (fatPercentage < range.min) {
+                return { class: 'status-warning', text: `⚠️ Abaixo do esperado (${range.min.toFixed(1)}% - ${range.max.toFixed(1)}%). Consulte um profissional.` };
+            } else if (fatPercentage <= range.max) {
+                return { class: 'status-good', text: `✅ Dentro da faixa saudável (${range.min.toFixed(1)}% - ${range.max.toFixed(1)}%). Excelente!` };
+            } else {
+                return { class: 'status-alert', text: `🚨 Acima do esperado (${range.min.toFixed(1)}% - ${range.max.toFixed(1)}%). Considere aumentar atividade física.` };
+            }
+        }
+
+        function getRCAStatus(rca) {
+            if (rca < 0.5) {
+                return { class: 'status-good', text: '✅ Risco baixo para doenças metabólicas e cardiovasculares. Continue com hábitos saudáveis!' };
+            } else {
+                return { class: 'status-alert', text: '🚨 Risco elevado para doenças metabólicas e cardiovasculares. Recomenda-se consultar um profissional de saúde e aumentar atividade física.' };
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('age').value = '';
+            document.getElementById('gender').value = '';
+            document.getElementById('weight').value = '';
+            document.getElementById('height').value = '';
+            document.getElementById('waist').value = '';
+            document.getElementById('results').classList.remove('show');
+        }
+
+        // Permitir Enter para calcular
+        document.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                calculateAll();
+            }
+        });
+    </script>
+</body>
+</html>

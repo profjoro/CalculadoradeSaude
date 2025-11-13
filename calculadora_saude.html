@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Saúde - Gordura Corporal e RCA - INFORSAÚDE - BAHIANA</title>
+    <title>Calculadora de Saúde - Gordura Corporal, RCA e IPAQ</title>
     <style>
         * {
             margin: 0;
@@ -289,6 +289,8 @@
             gap: 10px;
             margin-bottom: 30px;
             border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto; /* Adiciona rolagem horizontal se as abas não couberem */
+            white-space: nowrap; /* Impede quebra de linha */
         }
 
         .tab-button {
@@ -327,6 +329,13 @@
         }
 
         @media (max-width: 768px) {
+            .tabs {
+                justify-content: space-between; /* Distribui as abas */
+            }
+            .tab-button {
+                flex-shrink: 0; /* Impede que os botões encolham demais */
+                padding: 10px 15px;
+            }
             .form-row {
                 grid-template-columns: 1fr;
             }
@@ -378,29 +387,29 @@
     <div class="container">
         <div class="header">
             <h1>💪 Calculadora de Saúde</h1>
-            <p>Avalie sua Gordura Corporal e Índice de Relação Cintura-Altura</p>
-                    <p>Tecnólogo em Informática em Saúde - BAHIANA</p>
-
-		</div>
+            <p>Avalie sua Gordura Corporal, RCA e Nível de Atividade Física (IPAQ)</p>
+			<p>Tecnólogo em Informática em Saúde - BAHIANA</p>
+        </div>
 
         <div class="content">
             <!-- Abas de navegação -->
             <div class="tabs">
-                <button class="tab-button active" onclick="switchTab('calculator')">Calculadora</button>
+                <button class="tab-button active" onclick="switchTab('anthropometry-calculator')">Antropometria</button>
+                <button class="tab-button" onclick="switchTab('ipaq-calculator')">IPAQ</button>
                 <button class="tab-button" onclick="switchTab('info')">Informações</button>
             </div>
 
-            <!-- Aba Calculadora -->
-            <div id="calculator" class="tab-content active">
+            <!-- Aba Calculadora Antropometria -->
+            <div id="anthropometry-calculator" class="tab-content active">
                 <!-- Seção de Informações Gerais -->
                 <div class="section">
-                    <h2 class="section-title">📋 Dados Pessoais</h2>
+                    <h2 class="section-title">📋 Dados Pessoais e Medidas</h2>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="age">Idade (anos)</label>
                             <input type="number" id="age" min="16" max="100" placeholder="Ex: 30" required>
-                            <div class="unit-info">Entre 16 e 83 anos</div>
+                            <div class="unit-info">Para %G, a faixa de cálculo é 16-83 anos.</div>
                         </div>
                         <div class="form-group">
                             <label for="gender">Gênero</label>
@@ -411,12 +420,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
 
-                <!-- Seção de Medidas Antropométricas -->
-                <div class="section">
-                    <h2 class="section-title">📏 Medidas Antropométricas</h2>
-                    
                     <div class="info-box">
                         <h3>Como medir corretamente:</h3>
                         <strong>Peso:</strong> Use uma balança calibrada, sem roupas pesadas.<br>
@@ -444,13 +448,12 @@
                 </div>
 
                 <!-- Botões de Ação -->
-                <div class="button-group">
-                    <button class="btn-calculate" onclick="calculateAll()">Calcular Resultados</button>
-                    <button class="btn-reset" onclick="resetForm()">Limpar Dados</button>
+                <div class="button-group full">
+                    <button class="btn-calculate" onclick="calculateAnthropometry()">Calcular Resultados Antropométricos</button>
                 </div>
 
                 <!-- Resultados -->
-                <div id="results" class="results">
+                <div id="anthropometry-results" class="results">
                     <div class="result-item">
                         <div class="result-label">📊 Índice de Massa Corporal (IMC)</div>
                         <div class="result-value" id="imcValue">-</div>
@@ -467,6 +470,59 @@
                         <div class="result-label">⚖️ Índice de Relação Cintura-Altura (RCA)</div>
                         <div class="result-value" id="rcaValue">-</div>
                         <div class="result-interpretation" id="rcaInterpretation"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aba Calculadora IPAQ -->
+            <div id="ipaq-calculator" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">🚶 Questionário IPAQ - Nível de Atividade Física</h2>
+                    <p style="margin-bottom: 20px; color: #555;">Responda às perguntas abaixo sobre a frequência (dias/semana) e duração (minutos/sessão) de suas atividades físicas na última semana.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vigorous-f">Atividade Vigorosa - Frequência (dias/semana)</label>
+                            <input type="number" id="vigorous-f" min="0" max="7" placeholder="0 a 7" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="vigorous-d">Atividade Vigorosa - Duração (min/sessão)</label>
+                            <input type="number" id="vigorous-d" min="0" placeholder="Minutos" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="moderate-f">Atividade Moderada - Frequência (dias/semana)</label>
+                            <input type="number" id="moderate-f" min="0" max="7" placeholder="0 a 7" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="moderate-d">Atividade Moderada - Duração (min/sessão)</label>
+                            <input type="number" id="moderate-d" min="0" placeholder="Minutos" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="walking-f">Caminhada - Frequência (dias/semana)</label>
+                            <input type="number" id="walking-f" min="0" max="7" placeholder="0 a 7" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="walking-d">Caminhada - Duração (min/sessão)</label>
+                            <input type="number" id="walking-d" min="0" placeholder="Minutos" required>
+                        </div>
+                    </div>
+
+                    <div class="button-group full">
+                        <button class="btn-calculate" onclick="calculateIPAQ()">Calcular Nível de Atividade Física</button>
+                    </div>
+
+                    <div id="ipaq-results" class="results">
+                        <div class="result-item">
+                            <div class="result-label">🏃 Nível de Atividade Física (NAF) - IPAQ</div>
+                            <div class="result-value" id="ipaqValue">-</div>
+                            <div class="result-interpretation" id="ipaqInterpretation"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -583,6 +639,98 @@
                         </tbody>
                     </table>
 
+                    <h3 style="margin-top: 40px; margin-bottom: 15px; color: #333; font-size: 1.3em;">Nível de Atividade Física (NAF) - IPAQ</h3>
+                    <div class="info-box">
+                        <p><strong>Classificação utilizada:</strong> IPAQ - Versão Curta (2007)</p>
+                        <p style="margin-top: 10px;">O NAF é classificado em Sedentário, Irregularmente Ativo, Ativo e Muito Ativo, com base na frequência (dias/semana) e duração (minutos/sessão) das atividades de Caminhada, Moderada e Vigorosa.</p>
+                    </div>
+                    <h4 style="margin: 20px 0 15px; color: #333; font-weight: 600;">Critérios de Classificação (Resumo)</h4>
+                    <ul style="list-style-type: disc; margin-left: 20px; color: #555; line-height: 1.8;">
+                        <li>**Muito Ativo:** Atende aos critérios mais rigorosos de frequência e duração de atividades vigorosas e/ou uma combinação de atividades.</li>
+                        <li>**Ativo:** Atende aos critérios mínimos de frequência e duração de atividades vigorosas, moderadas ou caminhada, ou uma combinação que totalize 150 minutos/semana.</li>
+                        <li>**Irregularmente Ativo:** Realiza alguma atividade, mas não o suficiente para ser classificado como Ativo.</li>
+                        <li>**Sedentário:** Não realizou nenhuma atividade física por pelo menos 10 minutos contínuos durante a semana.</li>
+                    </ul>
+
+                    <h3 style="margin-top: 40px; margin-bottom: 15px; color: #333; font-size: 1.3em;">❓ Perguntas Frequentes (FAQ)</h3>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <details style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                            <summary style="padding: 15px; background: #f9f9f9; cursor: pointer; font-weight: 600; color: #333; user-select: none;">O que é Gordura Corporal?</summary>
+                            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; color: #555; line-height: 1.8;">
+                                <p>A <strong>gordura corporal</strong> é a proporção de gordura em relação ao peso total do corpo. É um indicador importante de saúde, pois o excesso de gordura está associado a diversas doenças crônicas como diabetes tipo 2, hipertensão arterial, doenças cardiovasculares e síndrome metabólica.</p>
+                                <p style="margin-top: 10px;">A fórmula utilizada nesta calculadora (Deurenberg et al., 1991) estima a gordura corporal com base no IMC, idade e gênero. Embora seja uma estimativa, é útil para triagem e acompanhamento geral da saúde.</p>
+                            </div>
+                        </details>
+
+                        <details style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                            <summary style="padding: 15px; background: #f9f9f9; cursor: pointer; font-weight: 600; color: #333; user-select: none;">O que é o Índice de Relação Cintura-Altura (RCA)?</summary>
+                            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; color: #555; line-height: 1.8;">
+                                <p>O <strong>Índice de Relação Cintura-Altura (RCA)</strong> é um indicador de distribuição de gordura corporal, especialmente a gordura abdominal (visceral). É calculado dividindo a circunferência da cintura pela altura.</p>
+                                <p style="margin-top: 10px;">O RCA é considerado um dos melhores preditores de risco cardiometabólico, pois a gordura visceral (aquela que fica ao redor dos órgãos internos) está fortemente associada a doenças cardiovasculares e metabólicas, independentemente do IMC.</p>
+                                <p style="margin-top: 10px;"><strong>Valores de referência:</strong></p>
+                                <ul style="margin-left: 20px; margin-top: 8px;">
+                                    <li><strong>RCA &lt; 0,5:</strong> Risco baixo para doenças metabólicas e cardiovasculares</li>
+                                    <li><strong>RCA ≥ 0,5:</strong> Risco elevado para doenças metabólicas e cardiovasculares</li>
+                                </ul>
+                            </div>
+                        </details>
+
+                        <details style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                            <summary style="padding: 15px; background: #f9f9f9; cursor: pointer; font-weight: 600; color: #333; user-select: none;">O que é o IPAQ e por que é importante?</summary>
+                            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; color: #555; line-height: 1.8;">
+                                <p>O <strong>IPAQ (Questionário Internacional de Atividade Física)</strong> é um instrumento padronizado internacionalmente para avaliar o nível de atividade física de indivíduos. Ele foi desenvolvido para permitir comparações consistentes de atividade física entre diferentes populações e países.</p>
+                                <p style="margin-top: 10px;"><strong>Por que é importante?</strong></p>
+                                <ul style="margin-left: 20px; margin-top: 8px;">
+                                    <li>A atividade física regular é essencial para manter a saúde cardiovascular, controlar o peso e prevenir doenças crônicas.</li>
+                                    <li>O IPAQ ajuda a identificar se você está praticando atividade física suficiente de acordo com as recomendações da Organização Mundial da Saúde (OMS).</li>
+                                    <li>As recomendações são: pelo menos 150 minutos de atividade moderada ou 75 minutos de atividade vigorosa por semana.</li>
+                                </ul>
+                            </div>
+                        </details>
+
+                        <details style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                            <summary style="padding: 15px; background: #f9f9f9; cursor: pointer; font-weight: 600; color: #333; user-select: none;">Qual é a diferença entre atividade vigorosa, moderada e caminhada?</summary>
+                            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; color: #555; line-height: 1.8;">
+                                <p><strong>Atividade Vigorosa:</strong> Atividades que aumentam significativamente a frequência cardíaca e deixam você ofegante. Exemplos: corrida, futebol, natação rápida, ciclismo intenso.</p>
+                                <p style="margin-top: 10px;"><strong>Atividade Moderada:</strong> Atividades que aumentam moderadamente a frequência cardíaca e deixam você um pouco ofegante. Exemplos: caminhada rápida, dança, ciclismo leve, limpeza pesada da casa.</p>
+                                <p style="margin-top: 10px;"><strong>Caminhada:</strong> Deslocamento a pé em ritmo normal. Exemplos: caminhar para o trabalho, caminhar no parque, caminhar para fazer compras.</p>
+                            </div>
+                        </details>
+
+                        <details style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                            <summary style="padding: 15px; background: #f9f9f9; cursor: pointer; font-weight: 600; color: #333; user-select: none;">Qual é a importância de manter um nível adequado de atividade física?</summary>
+                            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; color: #555; line-height: 1.8;">
+                                <p>Manter um nível adequado de atividade física traz diversos benefícios para a saúde:</p>
+                                <ul style="margin-left: 20px; margin-top: 8px;">
+                                    <li><strong>Saúde Cardiovascular:</strong> Reduz o risco de doenças do coração e acidente vascular cerebral.</li>
+                                    <li><strong>Controle de Peso:</strong> Ajuda a manter um peso saudável e reduz a gordura corporal.</li>
+                                    <li><strong>Prevenção de Doenças:</strong> Reduz o risco de diabetes tipo 2, certos tipos de câncer e osteoporose.</li>
+                                    <li><strong>Saúde Mental:</strong> Melhora o humor, reduz o estresse e a ansiedade, e melhora a qualidade do sono.</li>
+                                    <li><strong>Força e Flexibilidade:</strong> Aumenta a força muscular, a flexibilidade e o equilíbrio, reduzindo o risco de quedas.</li>
+                                    <li><strong>Longevidade:</strong> Pessoas ativas tendem a viver mais anos com melhor qualidade de vida.</li>
+                                </ul>
+                            </div>
+                        </details>
+
+                        <details style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                            <summary style="padding: 15px; background: #f9f9f9; cursor: pointer; font-weight: 600; color: #333; user-select: none;">Como interpretar meus resultados?</summary>
+                            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; color: #555; line-height: 1.8;">
+                                <p><strong>Gordura Corporal:</strong> Compare seu resultado com a faixa de referência para sua idade e gênero. Se estiver dentro da faixa, está saudável. Se estiver acima, considere aumentar a atividade física e revisar sua alimentação.</p>
+                                <p style="margin-top: 10px;"><strong>RCA:</strong> Se for menor que 0,5, você tem risco baixo. Se for maior ou igual a 0,5, você tem risco elevado e deve consultar um profissional de saúde.</p>
+                                <p style="margin-top: 10px;"><strong>IPAQ (NAF):</strong> Se for "Muito Ativo" ou "Ativo", você está praticando atividade física suficiente. Se for "Irregularmente Ativo" ou "Sedentário", você deve aumentar sua atividade física.</p>
+                            </div>
+                        </details>
+
+                        <details style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                            <summary style="padding: 15px; background: #f9f9f9; cursor: pointer; font-weight: 600; color: #333; user-select: none;">Essa calculadora substitui uma avaliação profissional?</summary>
+                            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; color: #555; line-height: 1.8;">
+                                <p><strong>Não.</strong> Esta calculadora é uma ferramenta educacional de triagem. Ela não substitui a avaliação de um profissional de saúde qualificado. Os resultados devem ser interpretados em conjunto com outras informações clínicas, laboratoriais e avaliações físicas realizadas por um médico, nutricionista ou educador físico.</p>
+                                <p style="margin-top: 10px;">Se você tiver preocupações com sua saúde ou seus resultados, consulte um profissional de saúde.</p>
+                            </div>
+                        </details>
+                    </div>
+
                     <div class="disclaimer">
                         <strong>⚠️ Importante:</strong>
                         Esta calculadora é uma ferramenta educacional e não substitui a avaliação de um profissional de saúde qualificado. Os resultados devem ser interpretados em conjunto com outras informações clínicas e laboratoriais. Consulte um médico ou nutricionista para uma avaliação completa do seu estado de saúde.
@@ -606,10 +754,10 @@
             document.getElementById(tabName).classList.add('active');
 
             // Adicionar classe active ao botão clicado
-            event.target.classList.add('active');
+            document.querySelector(`.tab-button[onclick="switchTab('${tabName}')"]`).classList.add('active');
         }
 
-        function calculateAll() {
+        function calculateAnthropometry() {
             const age = parseFloat(document.getElementById('age').value);
             const gender = document.getElementById('gender').value;
             const weight = parseFloat(document.getElementById('weight').value);
@@ -618,12 +766,12 @@
 
             // Validação
             if (!age || !gender || !weight || !height || !waist) {
-                alert('Por favor, preencha todos os campos!');
+                alert('Por favor, preencha todos os campos de Antropometria!');
                 return;
             }
 
             if (age < 16 || age > 83) {
-                alert('A idade deve estar entre 16 e 83 anos!');
+                alert('Para o cálculo de Gordura Corporal, a idade deve estar entre 16 e 83 anos!');
                 return;
             }
 
@@ -635,11 +783,11 @@
             const rca = waist / height;
 
             // Exibir resultados
-            displayResults(imc, fatPercentage, rca, age, gender);
+            displayAnthropometryResults(imc, fatPercentage, rca, age, gender);
         }
 
-        function displayResults(imc, fatPercentage, rca, age, gender) {
-            const resultsDiv = document.getElementById('results');
+        function displayAnthropometryResults(imc, fatPercentage, rca, age, gender) {
+            const resultsDiv = document.getElementById('anthropometry-results');
             
             // IMC
             const imcValue = imc.toFixed(1);
@@ -711,6 +859,10 @@
             const genderKey = gender === 'male' ? 'male' : 'female';
             const range = ranges[genderKey][ageRange];
 
+            if (!range) {
+                return { class: 'status-warning', text: '⚠️ Faixa de referência de gordura corporal não disponível para esta idade.' };
+            }
+
             if (fatPercentage < range.min) {
                 return { class: 'status-warning', text: `⚠️ Abaixo do esperado (${range.min.toFixed(1)}% - ${range.max.toFixed(1)}%). Consulte um profissional.` };
             } else if (fatPercentage <= range.max) {
@@ -728,19 +880,143 @@
             }
         }
 
+        function calculateIPAQ() {
+            const V_F = parseInt(document.getElementById('vigorous-f').value) || 0;
+            const V_D = parseInt(document.getElementById('vigorous-d').value) || 0;
+            const M_F = parseInt(document.getElementById('moderate-f').value) || 0;
+            const M_D = parseInt(document.getElementById('moderate-d').value) || 0;
+            const C_F = parseInt(document.getElementById('walking-f').value) || 0;
+            const C_D = parseInt(document.getElementById('walking-d').value) || 0;
+
+            // Validação: Se todos os campos de frequência e duração forem 0, é Sedentário.
+            if (V_F === 0 && V_D === 0 && M_F === 0 && M_D === 0 && C_F === 0 && C_D === 0) {
+                displayIPAQResults('Sedentário', '🚨 Sedentário. Não realizou nenhuma atividade física por pelo menos 10 minutos contínuos durante a semana. É fundamental iniciar um programa de exercícios.');
+                return;
+            }
+
+            // Critérios de Atividade Mínima (10 minutos por sessão)
+            const V_D_valid = V_D >= 10;
+            const M_D_valid = M_D >= 10;
+            const C_D_valid = C_D >= 10;
+
+            // Frequência e Duração válidas (apenas para atividades com duração >= 10 min)
+            const V_F_valid = V_F > 0 && V_D_valid;
+            const M_F_valid = M_F > 0 && M_D_valid;
+            const C_F_valid = C_F > 0 && C_D_valid;
+
+            // Cálculo dos minutos totais por semana (apenas para as atividades válidas)
+            const V_min_week = V_F_valid ? V_F * V_D : 0;
+            const M_min_week = M_F_valid ? M_F * M_D : 0;
+            const C_min_week = C_F_valid ? C_F * C_D : 0;
+            const total_min_week = V_min_week + M_min_week + C_min_week;
+            
+            // Frequência total de atividades válidas
+            const total_f_week = (V_F_valid ? V_F : 0) + (M_F_valid ? M_F : 0) + (C_F_valid ? C_F : 0);
+
+            // 1. MUITO ATIVO
+            let isVeryActive = false;
+            // Critério 1a: Vigorosa >= 5 dias/sem E >= 30 min/sessão
+            if (V_F >= 5 && V_D >= 30) {
+                isVeryActive = true;
+            }
+            // Critério 1b: Vigorosa >= 3 dias/sem E >= 20 min/sessão + Moderada e/ou Caminhada >= 5 dias/sem E >= 30 min/sessão
+            else if (V_F >= 3 && V_D >= 20 && (M_F >= 5 && M_D >= 30 || C_F >= 5 && C_D >= 30)) {
+                isVeryActive = true;
+            }
+            // Critério 1c: Qualquer atividade somada >= 5 dias/sem E >= 150 minutos/sem (caminhada + moderada + vigorosa)
+            else if (total_f_week >= 5 && total_min_week >= 150) {
+                isVeryActive = true;
+            }
+
+            if (isVeryActive) {
+                displayIPAQResults('Muito Ativo', '✅ Muito Ativo. Você atende aos critérios mais rigorosos de atividade física. Mantenha o ritmo!');
+                return;
+            }
+
+            // 2. ATIVO
+            let isActive = false;
+            // Critério 2a: Vigorosa >= 3 dias/sem E >= 20 min/sessão
+            if (V_F >= 3 && V_D >= 20) {
+                isActive = true;
+            }
+            // Critério 2b: Moderada ou Caminhada >= 5 dias/sem E >= 30 min/sessão
+            else if ((M_F >= 5 && M_D >= 30) || (C_F >= 5 && C_D >= 30)) {
+                isActive = true;
+            }
+            // Critério 2c: Qualquer atividade somada >= 5 dias/sem E >= 150 minutos/sem (caminhada + moderada + vigorosa)
+            else if (total_f_week >= 5 && total_min_week >= 150) {
+                isActive = true;
+            }
+
+            if (isActive) {
+                displayIPAQResults('Ativo', '✅ Ativo. Você atende às recomendações mínimas de atividade física. Ótimo!');
+                return;
+            }
+
+            // 3. IRREGULARMENTE ATIVO
+            // Se não é Sedentário, Muito Ativo ou Ativo, é Irregularmente Ativo.
+            // Subgrupos:
+            // Irregularmente Ativo A: Atinge pelo menos um dos critérios de recomendação (Frequência: 5 dias/sem OU Duração: 150 min/sem)
+            // Irregularmente Ativo B: Não atingiu nenhum dos critérios de recomendação (Frequência nem Duração)
+
+            let isIrregularlyActiveA = false;
+            if (total_f_week >= 5 || total_min_week >= 150) {
+                isIrregularlyActiveA = true;
+            }
+
+            if (isIrregularlyActiveA) {
+                displayIPAQResults('Irregularmente Ativo A', '⚠️ Irregularmente Ativo A. Você realiza alguma atividade, mas não o suficiente para ser classificado como Ativo. Tente aumentar a frequência ou a duração.');
+            } else {
+                displayIPAQResults('Irregularmente Ativo B', '⚠️ Irregularmente Ativo B. Você realiza pouca atividade física. É importante buscar aumentar a frequência e a duração dos exercícios.');
+            }
+        }
+
+        function displayIPAQResults(naf, interpretation) {
+            const resultsDiv = document.getElementById('ipaq-results');
+            
+            let statusClass = 'status-warning';
+            if (naf === 'Muito Ativo' || naf === 'Ativo') {
+                statusClass = 'status-good';
+            } else if (naf === 'Sedentário') {
+                statusClass = 'status-alert';
+            }
+
+            document.getElementById('ipaqValue').textContent = naf;
+            document.getElementById('ipaqInterpretation').innerHTML = 
+                `<div class="result-interpretation ${statusClass}">${interpretation}</div>`;
+
+            // Mostrar resultados
+            resultsDiv.classList.add('show');
+        }
+
         function resetForm() {
+            // Reset Antropometria
             document.getElementById('age').value = '';
             document.getElementById('gender').value = '';
             document.getElementById('weight').value = '';
             document.getElementById('height').value = '';
             document.getElementById('waist').value = '';
-            document.getElementById('results').classList.remove('show');
+            document.getElementById('anthropometry-results').classList.remove('show');
+
+            // Reset IPAQ
+            document.getElementById('vigorous-f').value = '';
+            document.getElementById('vigorous-d').value = '';
+            document.getElementById('moderate-f').value = '';
+            document.getElementById('moderate-d').value = '';
+            document.getElementById('walking-f').value = '';
+            document.getElementById('walking-d').value = '';
+            document.getElementById('ipaq-results').classList.remove('show');
         }
 
-        // Permitir Enter para calcular
+        // Permitir Enter para calcular (apenas no formulário ativo)
         document.addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
-                calculateAll();
+                const activeTab = document.querySelector('.tab-content.active');
+                if (activeTab.id === 'anthropometry-calculator') {
+                    calculateAnthropometry();
+                } else if (activeTab.id === 'ipaq-calculator') {
+                    calculateIPAQ();
+                }
             }
         });
     </script>

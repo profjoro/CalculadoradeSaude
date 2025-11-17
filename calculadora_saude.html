@@ -388,7 +388,6 @@
         <div class="header">
             <h1>💪 Calculadora de Saúde</h1>
             <p>Avalie sua Gordura Corporal, RCA e Nível de Atividade Física (IPAQ)</p>
-			<p>Tecnólogo em Informática em Saúde - BAHIANA</p>
         </div>
 
         <div class="content">
@@ -478,38 +477,86 @@
             <div id="ipaq-calculator" class="tab-content">
                 <div class="section">
                     <h2 class="section-title">🚶 Questionário IPAQ - Nível de Atividade Física</h2>
-                    <p style="margin-bottom: 20px; color: #555;">Responda às perguntas abaixo sobre a frequência (dias/semana) e duração (minutos/sessão) de suas atividades físicas na última semana.</p>
+                    
+                    <div class="info-box">
+                        <h3>📋 Como Responder Este Questionário</h3>
+                        <p><strong>Período de Referência:</strong> Pense nas atividades que você realizou na <strong>última semana</strong> (últimos 7 dias).</p>
+                        <p style="margin-top: 10px;"><strong>Critério Importante:</strong> Considere <strong>SOMENTE as atividades que você realiza por pelo menos 10 minutos contínuos de cada vez</strong>. Atividades com duração inferior a 10 minutos não devem ser contadas.</p>
+                        <p style="margin-top: 10px;"><strong>Exemplo:</strong> Se você caminhou 5 minutos para pegar o ônibus, isso não conta. Mas se você caminhou 30 minutos no parque, isso conta como 1 dia de caminhada.</p>
+                    </div>
 
+                    <div style="background: #f0f7ff; border-left: 4px solid #2196f3; padding: 20px; border-radius: 8px; margin-bottom: 30px; color: #1565c0;">
+                        <h3 style="margin-bottom: 15px; color: #1565c0;">🎯 Entendendo os Tipos de Atividade</h3>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: #1565c0; margin-bottom: 8px;">💪 Atividade Vigorosa</h4>
+                            <p style="margin: 0; line-height: 1.6;">Atividades que deixam você ofegante e aumentam muito sua frequência cardíaca. Você consegue falar poucas palavras durante a atividade.</p>
+                            <p style="margin-top: 8px; margin-bottom: 0;"><strong>Exemplos:</strong> Corrida, futebol, basquete, natação rápida, ciclismo intenso, musculação pesada, aeróbica, dança vigorosa, subir escadas rapidamente.</p>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: #1565c0; margin-bottom: 8px;">🚴 Atividade Moderada</h4>
+                            <p style="margin: 0; line-height: 1.6;">Atividades que aumentam moderadamente sua frequência cardíaca. Você consegue falar durante a atividade, mas não cantar.</p>
+                            <p style="margin-top: 8px; margin-bottom: 0;"><strong>Exemplos:</strong> Caminhada rápida, dança leve, ciclismo leve, limpeza pesada da casa, jardinagem, tênis de mesa, vôlei recreativo, yoga dinâmica.</p>
+                        </div>
+
+                        <div>
+                            <h4 style="color: #1565c0; margin-bottom: 8px;">🚶 Caminhada</h4>
+                            <p style="margin: 0; line-height: 1.6;">Deslocamento a pé em ritmo normal. Você consegue conversar normalmente durante a caminhada.</p>
+                            <p style="margin-top: 8px; margin-bottom: 0;"><strong>Exemplos:</strong> Caminhar para o trabalho, caminhar no parque, caminhar para fazer compras, caminhar para se deslocar de um lugar para outro.</p>
+                        </div>
+                    </div>
+
+                    <p style="margin-bottom: 20px; color: #555; font-weight: 600;">Responda às perguntas abaixo sobre a frequência (dias/semana) e duração (minutos/sessão) de suas atividades físicas na última semana.</p>
+
+                    <h3 style="margin-top: 30px; margin-bottom: 20px; color: #333; font-size: 1.2em;">💪 Atividade Vigorosa</h3>
+                          
+						  <p style="margin: 0; line-height: 1.6;">Atividades que deixam você ofegante e aumentam muito sua frequência cardíaca. Você consegue falar poucas palavras durante a atividade.</p>
+                            <p style="margin-top: 8px; margin-bottom: 0;"><strong>Exemplos:</strong> Corrida, futebol, basquete, natação rápida, ciclismo intenso, musculação pesada, aeróbica, dança vigorosa, subir escadas rapidamente.</p>
+					<p style="color: #666; margin-bottom: 15px;">-</p>
+
+                            <p style="margin-top: 8px; margin-bottom: 0;"><strong>Quantos dias na última semana você realizou atividades vigorosas por pelo menos 10 minutos contínuos? </strong> </p>
+					
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="vigorous-f">Atividade Vigorosa - Frequência (dias/semana)</label>
+                            <label for="vigorous-f">Frequência (dias/semana)</label>
                             <input type="number" id="vigorous-f" min="0" max="7" placeholder="0 a 7" required>
+                            <div class="unit-info">Exemplo: Se você correu 3 dias, digite 3</div>
                         </div>
                         <div class="form-group">
-                            <label for="vigorous-d">Atividade Vigorosa - Duração (min/sessão)</label>
+                            <label for="vigorous-d">Duração de cada sessão (minutos)</label>
                             <input type="number" id="vigorous-d" min="0" placeholder="Minutos" required>
+                            <div class="unit-info">Exemplo: Se cada sessão durou 30 minutos, digite 30</div>
                         </div>
                     </div>
 
+                    <h3 style="margin-top: 30px; margin-bottom: 20px; color: #333; font-size: 1.2em;">🚴 Atividade Moderada</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Quantos dias na última semana você realizou atividades moderadas por pelo menos 10 minutos contínuos?</p>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="moderate-f">Atividade Moderada - Frequência (dias/semana)</label>
+                            <label for="moderate-f">Frequência (dias/semana)</label>
                             <input type="number" id="moderate-f" min="0" max="7" placeholder="0 a 7" required>
+                            <div class="unit-info">Exemplo: Se você fez limpeza pesada 2 dias, digite 2</div>
                         </div>
                         <div class="form-group">
-                            <label for="moderate-d">Atividade Moderada - Duração (min/sessão)</label>
+                            <label for="moderate-d">Duração de cada sessão (minutos)</label>
                             <input type="number" id="moderate-d" min="0" placeholder="Minutos" required>
+                            <div class="unit-info">Exemplo: Se cada sessão durou 45 minutos, digite 45</div>
                         </div>
                     </div>
 
+                    <h3 style="margin-top: 30px; margin-bottom: 20px; color: #333; font-size: 1.2em;">🚶 Caminhada</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Quantos dias na última semana você caminhou por pelo menos 10 minutos contínuos?</p>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="walking-f">Caminhada - Frequência (dias/semana)</label>
+                            <label for="walking-f">Frequência (dias/semana)</label>
                             <input type="number" id="walking-f" min="0" max="7" placeholder="0 a 7" required>
+                            <div class="unit-info">Exemplo: Se você caminhou 5 dias, digite 5</div>
                         </div>
                         <div class="form-group">
-                            <label for="walking-d">Caminhada - Duração (min/sessão)</label>
+                            <label for="walking-d">Duração de cada sessão (minutos)</label>
                             <input type="number" id="walking-d" min="0" placeholder="Minutos" required>
+                            <div class="unit-info">Exemplo: Se cada caminhada durou 20 minutos, digite 20</div>
                         </div>
                     </div>
 

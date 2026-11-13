@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Saúde - Gordura Corporal, RCA e IPAQ Joro JOro </title>
+    <title>Calculadora de Saúde - Gordura Corporal, RCA e IPAQ</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #24694a 0%, #0d304c 100%);
             min-height: 100vh;
             padding: 20px;
             display: flex;
@@ -31,7 +31,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #24694a 0%, #0d304c 100%);
             color: white;
             padding: 40px 30px;
             text-align: center;
@@ -61,7 +61,7 @@
             color: #333;
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid #24694a;
             font-weight: 600;
         }
 
@@ -91,7 +91,7 @@
         select {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid #e0e0e0;
+            border: 2px solid #d8e5df;
             border-radius: 8px;
             font-size: 1em;
             transition: border-color 0.3s;
@@ -101,7 +101,7 @@
         input[type="number"]:focus,
         select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #24694a;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
@@ -127,7 +127,7 @@
         }
 
         .btn-calculate {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #24694a 0%, #0d304c 100%);
             color: white;
         }
 
@@ -139,16 +139,16 @@
         .btn-reset {
             background: #f0f0f0;
             color: #333;
-            border: 2px solid #e0e0e0;
+            border: 2px solid #d8e5df;
         }
 
         .btn-reset:hover {
-            background: #e0e0e0;
+            background: #d8e5df;
         }
 
         .results {
             background: #f8f9fa;
-            border-left: 5px solid #667eea;
+            border-left: 5px solid #24694a;
             padding: 25px;
             border-radius: 8px;
             margin-top: 30px;
@@ -174,7 +174,7 @@
         .result-item {
             margin-bottom: 20px;
             padding-bottom: 20px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #d8e5df;
         }
 
         .result-item:last-child {
@@ -193,7 +193,7 @@
         .result-value {
             font-size: 1.8em;
             font-weight: 700;
-            color: #667eea;
+            color: #24694a;
             margin-bottom: 8px;
         }
 
@@ -215,7 +215,7 @@
         .status-warning {
             border-left: 4px solid #ff9800;
             background: #fff3f0;
-            color: #e65100;
+            color: #844509;
         }
 
         .status-alert {
@@ -225,12 +225,12 @@
         }
 
         .info-box {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
+            background: #edf5f0;
+            border-left: 4px solid #24694a;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 30px;
-            color: #1565c0;
+            color: #174b37;
             line-height: 1.7;
         }
 
@@ -246,7 +246,7 @@
             font-family: 'Courier New', monospace;
             margin: 15px 0;
             color: #333;
-            border-left: 3px solid #667eea;
+            border-left: 3px solid #24694a;
         }
 
         .reference-table {
@@ -260,7 +260,7 @@
         }
 
         .reference-table th {
-            background: #667eea;
+            background: #24694a;
             color: white;
             padding: 15px;
             text-align: left;
@@ -269,7 +269,7 @@
 
         .reference-table td {
             padding: 12px 15px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #d8e5df;
         }
 
         .reference-table tr:last-child td {
@@ -277,7 +277,7 @@
         }
 
         .reference-table tr:nth-child(even) {
-            background: #f9f9f9;
+            background: #f6f9f7;
         }
 
         .reference-table tr:hover {
@@ -288,7 +288,7 @@
             display: flex;
             gap: 10px;
             margin-bottom: 30px;
-            border-bottom: 2px solid #e0e0e0;
+            border-bottom: 2px solid #d8e5df;
             overflow-x: auto; /* Adiciona rolagem horizontal se as abas não couberem */
             white-space: nowrap; /* Impede quebra de linha */
         }
@@ -300,18 +300,18 @@
             cursor: pointer;
             font-size: 1em;
             font-weight: 600;
-            color: #999;
+            color: #52635c;
             border-bottom: 3px solid transparent;
             transition: all 0.3s;
         }
 
         .tab-button.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
+            color: #24694a;
+            border-bottom-color: #24694a;
         }
 
         .tab-button:hover {
-            color: #667eea;
+            color: #24694a;
         }
 
         .tab-content {
@@ -324,7 +324,7 @@
 
         .unit-info {
             font-size: 0.85em;
-            color: #999;
+            color: #52635c;
             margin-top: 5px;
         }
 
@@ -381,13 +381,59 @@
             display: block;
             margin-bottom: 8px;
         }
+        body {
+            background: #edf3ef;
+            align-items: flex-start;
+            padding: clamp(12px, 4vw, 48px);
+        }
+
+        .container {
+            max-width: 1050px;
+            border: 1px solid #d8e5df;
+            box-shadow: 0 16px 48px rgba(13, 48, 76, .10);
+        }
+
+        .institutional-brand {
+            display: flex;
+            align-items: center;
+            padding: 14px clamp(18px, 5vw, 42px);
+            background: #fff;
+        }
+
+        .institutional-brand img {
+            display: block;
+            width: min(220px, 100%);
+            height: auto;
+        }
+
+        .header {
+            text-align: left;
+            padding: clamp(24px, 5vw, 48px) clamp(18px, 5vw, 42px);
+            background: linear-gradient(120deg, #0d304c, #174b37 72%, #24694a);
+            border-bottom: 4px solid #c5a052;
+        }
+
+        .header h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); }
+        .header p { line-height: 1.5; }
+        .section-title { color: #0d304c; }
+        .tabs { flex-wrap: wrap; gap: 6px; white-space: normal; }
+        .tab-button { border-radius: 8px 8px 0 0; }
+        .tab-button.active, .tab-button:hover { background: #edf5f0; }
+        .btn-calculate { background: #24694a; }
+        .tab-button:focus-visible, .btn-calculate:focus-visible, .btn-reset:focus-visible {
+            outline: 3px solid #85621d;
+            outline-offset: -3px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="institutional-brand">
+            <img src="data:image/png;base64,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" width="253" height="84" alt="Bahiana — Escola Bahiana de Medicina e Saúde Pública">
+        </div>
         <div class="header">
-            <h1>💪 Calculadora de Saúde</h1>
-            <p>Avalie sua Gordura Corporal, RCA e Nível de Atividade Física (IPAQ)</p>
+            <h1>Calculadora de Saúde</h1>
+            <p>Antropometria, atividade física (IPAQ) e hábitos alimentares.</p>
         </div>
 
         <div class="content">
@@ -395,6 +441,7 @@
             <div class="tabs">
                 <button class="tab-button active" onclick="switchTab('anthropometry-calculator')">Antropometria</button>
                 <button class="tab-button" onclick="switchTab('ipaq-calculator')">IPAQ</button>
+                <button class="tab-button" onclick="switchTab('alimentacao')">Como está a sua alimentação?</button>
                 <button class="tab-button" onclick="switchTab('info')">Informações</button>
             </div>
 
@@ -412,7 +459,7 @@
                         </div>
                         <div class="form-group">
                             <label for="gender">Gênero</label>
-                            <select id="gender" required>
+                            <select id="gender" onchange="document.getElementById('hip-group').hidden = this.value !== 'female'" required>
                                 <option value="">Selecione...</option>
                                 <option value="male">Masculino</option>
                                 <option value="female">Feminino</option>
@@ -424,7 +471,9 @@
                         <h3>Como medir corretamente:</h3>
                         <strong>Peso:</strong> Use uma balança calibrada, sem roupas pesadas.<br>
                         <strong>Altura:</strong> Meça descalço, com a cabeça reta, encostado em uma parede.<br>
-                        <strong>Cintura:</strong> Meça na menor circunferência entre as costelas e a bacia, com o abdômen relaxado.
+                        <strong>Cintura:</strong> Meça na menor circunferência entre as costelas e a bacia, com o abdômen relaxado.<br>
+                        <strong>Pescoço:</strong> Meça logo abaixo da laringe.<br>
+                        <strong>Quadril:</strong> Meça na parte mais larga.
                     </div>
 
                     <div class="form-row">
@@ -443,6 +492,17 @@
                             <label for="waist">Circunferência da Cintura (cm)</label>
                             <input type="number" id="waist" min="40" max="200" step="0.1" placeholder="Ex: 85" required>
                         </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="neck">Circunferência do Pescoço (cm)</label>
+                        <input type="number" id="neck" min="0.1" step="0.1" placeholder="Ex: 38">
+                    </div>
+                    <div class="form-group" id="hip-group" hidden>
+                        <label for="hip">Circunferência do Quadril (cm)</label>
+                        <input type="number" id="hip" min="0.1" step="0.1" placeholder="Ex: 100">
                     </div>
                 </div>
 
@@ -485,23 +545,23 @@
                         <p style="margin-top: 10px;"><strong>Exemplo:</strong> Se você caminhou 5 minutos para pegar o ônibus, isso não conta. Mas se você caminhou 30 minutos no parque, isso conta como 1 dia de caminhada.</p>
                     </div>
 
-                    <div style="background: #f0f7ff; border-left: 4px solid #2196f3; padding: 20px; border-radius: 8px; margin-bottom: 30px; color: #1565c0;">
-                        <h3 style="margin-bottom: 15px; color: #1565c0;">🎯 Entendendo os Tipos de Atividade</h3>
+                    <div style="background: #edf5f0; border-left: 4px solid #24694a; padding: 20px; border-radius: 8px; margin-bottom: 30px; color: #174b37;">
+                        <h3 style="margin-bottom: 15px; color: #174b37;">🎯 Entendendo os Tipos de Atividade</h3>
                         
                         <div style="margin-bottom: 20px;">
-                            <h4 style="color: #1565c0; margin-bottom: 8px;">💪 Atividade Vigorosa</h4>
+                            <h4 style="color: #174b37; margin-bottom: 8px;">💪 Atividade Vigorosa</h4>
                             <p style="margin: 0; line-height: 1.6;">Atividades que deixam você ofegante e aumentam muito sua frequência cardíaca. Você consegue falar poucas palavras durante a atividade.</p>
                             <p style="margin-top: 8px; margin-bottom: 0;"><strong>Exemplos:</strong> Corrida, futebol, basquete, natação rápida, ciclismo intenso, musculação pesada, aeróbica, dança vigorosa, subir escadas rapidamente.</p>
                         </div>
 
                         <div style="margin-bottom: 20px;">
-                            <h4 style="color: #1565c0; margin-bottom: 8px;">🚴 Atividade Moderada</h4>
+                            <h4 style="color: #174b37; margin-bottom: 8px;">🚴 Atividade Moderada</h4>
                             <p style="margin: 0; line-height: 1.6;">Atividades que aumentam moderadamente sua frequência cardíaca. Você consegue falar durante a atividade, mas não cantar.</p>
                             <p style="margin-top: 8px; margin-bottom: 0;"><strong>Exemplos:</strong> Caminhada rápida, dança leve, ciclismo leve, limpeza pesada da casa, jardinagem, tênis de mesa, vôlei recreativo, yoga dinâmica.</p>
                         </div>
 
                         <div>
-                            <h4 style="color: #1565c0; margin-bottom: 8px;">🚶 Caminhada</h4>
+                            <h4 style="color: #174b37; margin-bottom: 8px;">🚶 Caminhada</h4>
                             <p style="margin: 0; line-height: 1.6;">Deslocamento a pé em ritmo normal. Você consegue conversar normalmente durante a caminhada.</p>
                             <p style="margin-top: 8px; margin-bottom: 0;"><strong>Exemplos:</strong> Caminhar para o trabalho, caminhar no parque, caminhar para fazer compras, caminhar para se deslocar de um lugar para outro.</p>
                         </div>
@@ -575,15 +635,191 @@
             </div>
 
             <!-- Aba Informações -->
+            <div id="alimentacao" class="tab-content">
+                <iframe id="questionario-alimentacao"
+                    title="Como está a sua alimentação?"
+                    style="display:block;width:100%;height:650px;border:0;border-radius:14px"
+                    srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;pt-BR&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+&lt;title&gt;Como está a sua alimentação? | Bahiana&lt;/title&gt;
+&lt;style&gt;
+:root{--azul:#0d304c;--verde:#24694a;--ouro:#c5a052;--fundo:#f6f9f7;--texto:#24354a}
+*{box-sizing:border-box}body{margin:0;background:var(--fundo);color:var(--texto);font:1rem/1.55 Inter,system-ui,sans-serif}
+.wrap{width:min(880px,calc(100% - 2rem));margin:auto}.brand{background:white;padding:.85rem 0}.brand img{width:190px;height:auto;display:block}
+.hero{background:linear-gradient(115deg,var(--azul),#174b37);color:white;border-bottom:5px solid var(--ouro);padding:2.5rem 0 2.8rem}
+h1,h2,p{margin:0}h1{font-size:clamp(2rem,6vw,3.6rem);line-height:1.08;margin-bottom:.7rem;letter-spacing:-.045em}.hero p{max-width:60ch}
+main{padding:1.5rem 0 3rem}.intro,.progress,.result,fieldset{border:1px solid #dbe4eb;border-radius:14px;background:white}.intro,.progress,.result{padding:1.1rem 1.3rem}
+.intro{border-left:5px solid var(--verde)}h2{color:var(--azul);line-height:1.25;font-size:1.35rem}.intro h2{margin-bottom:.4rem}
+.progress{margin:1rem 0 1.7rem}progress{display:block;width:100%;height:.75rem;margin-top:.5rem;accent-color:var(--verde)}
+.block{margin:1.7rem 0 1rem}fieldset{margin:0 0 .85rem;padding:.75rem 1rem 1rem;min-width:0}legend{font-weight:650;padding:0 .35rem;max-width:100%}.number{display:inline-block;color:var(--verde);margin-right:.55rem;font-variant-numeric:tabular-nums}
+.options{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}label{cursor:pointer;display:flex;align-items:center;gap:.4rem;border:1px solid #dbe4eb;border-radius:9px;padding:.55rem;font-size:.92rem}label:has(input:checked){background:#eaf5ee;border-color:var(--verde);color:#144c31}input{margin:0;accent-color:var(--verde)}
+button{font:inherit;font-weight:650;cursor:pointer;padding:.65rem 1rem;border:1px solid var(--azul);border-radius:9px;background:var(--azul);color:white}button[type=reset]{background:white;color:var(--azul)}.actions{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1.3rem}
+:focus-visible{outline:3px solid #997100;outline-offset:3px} 
+.result{--status:#24694a;--tint:#edf8f0;margin-top:1.5rem;padding:0;overflow:hidden;border-color:var(--status);background:var(--tint)}
+.result[data-level=medium]{--status:#765000;--tint:#fff6d9}
+.result[data-level=low]{--status:#972d3a;--tint:#fff0f1}
+.result-header{background:var(--status);color:#fff;padding:clamp(1.15rem,4vw,2rem)}
+.result-caption{font-weight:650}
+.result-header h2{color:inherit;font-size:clamp(1.7rem,5vw,3.15rem);line-height:1.12;letter-spacing:-.025em;margin:.3rem 0 .75rem;overflow-wrap:break-word}
+.score{display:inline-block;background:#fff;color:var(--status);border-radius:999px;padding:.25rem .8rem;font-weight:750}
+.result-body{padding:1.15rem clamp(1.15rem,4vw,2rem)}
+.result-body p+p{margin-top:.45rem}
+#error{color:#8c2229;margin-top:.5rem}details{margin-top:1.5rem}summary{cursor:pointer;color:var(--azul);font-weight:650}details ul{padding-left:1.3rem}
+@media(max-width:600px){.options{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:2rem 0}fieldset{padding-inline:.65rem}}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;header&gt;
+&lt;div class=&quot;hero&quot;&gt;&lt;div class=&quot;wrap&quot;&gt;&lt;h1&gt;Como está a sua alimentação?&lt;/h1&gt;&lt;p&gt;Questionário de avaliação baseado no Guia Alimentar para a População Brasileira&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/header&gt;
+&lt;main class=&quot;wrap&quot;&gt;
+&lt;section class=&quot;intro&quot;&gt;&lt;h2&gt;Instruções de preenchimento&lt;/h2&gt;&lt;p&gt;Responda de acordo com a sua rotina atual de alimentação. Se ficar em dúvida entre duas alternativas, escolha aquela que pratica com maior frequência.&lt;/p&gt;&lt;/section&gt;
+&lt;div class=&quot;progress&quot;&gt;&lt;strong id=&quot;progress-text&quot;&gt;0 de 24 respondidas&lt;/strong&gt;&lt;progress id=&quot;progress&quot; max=&quot;24&quot; value=&quot;0&quot; aria-label=&quot;Progresso do preenchimento&quot;&gt;&lt;/progress&gt;&lt;/div&gt;
+&lt;form id=&quot;questionnaire&quot;&gt;
+&lt;h2 class=&quot;block&quot;&gt;Bloco I · Hábitos e escolhas alimentares&lt;/h2&gt;&lt;div id=&quot;block1&quot;&gt;&lt;/div&gt;
+&lt;h2 class=&quot;block&quot;&gt;Bloco II · Frequência e modos de comer&lt;/h2&gt;&lt;div id=&quot;block2&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;actions&quot;&gt;&lt;button type=&quot;submit&quot;&gt;Calcular resultado&lt;/button&gt;&lt;button type=&quot;reset&quot;&gt;Limpar respostas&lt;/button&gt;&lt;/div&gt;
+&lt;p id=&quot;error&quot; role=&quot;alert&quot;&gt;&lt;/p&gt;
+&lt;/form&gt;
+&lt;section class=&quot;result&quot; id=&quot;result&quot; hidden tabindex=&quot;-1&quot; aria-labelledby=&quot;classification&quot;&gt; 
+  &lt;div class=&quot;result-header&quot;&gt;
+    &lt;p class=&quot;result-caption&quot;&gt;Sua classificação&lt;/p&gt;
+    &lt;h2 id=&quot;classification&quot;&gt;&lt;/h2&gt;
+    &lt;p class=&quot;score&quot; id=&quot;score&quot;&gt;&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;result-body&quot;&gt;
+    &lt;p id=&quot;interpretation&quot;&gt;&lt;/p&gt;
+    &lt;p id=&quot;action&quot;&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+&lt;details&gt;&lt;summary&gt;Como a pontuação é calculada?&lt;/summary&gt;
+&lt;ul&gt;&lt;li&gt;Questões 1 a 13 (protetoras). Nunca = 0, raramente = 1, muitas vezes = 2, sempre = 3.&lt;/li&gt;
+&lt;li&gt;Questões 14 a 24 (de risco). Nunca = 3, raramente = 2, muitas vezes = 1, sempre = 0.&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Excelente · 42 a 72 pontos&lt;br&gt;Em evolução · 31 a 41 pontos&lt;br&gt;Atenção / Necessidade de Mudança · 0 a 30 pontos&lt;/p&gt;
+&lt;/details&gt;
+&lt;noscript&gt;&lt;p&gt;Ative o JavaScript no navegador para preencher o questionário.&lt;/p&gt;&lt;/noscript&gt;
+&lt;/main&gt;
+&lt;script&gt;
+const questions = [
+  &#x27;Quando faço pequenos lanches ao longo do dia, costumo comer nozes ou castanhas.&#x27;,
+  &#x27;Quando escolho frutas, verduras e legumes, dou preferência para as que são de produção local.&#x27;,
+  &#x27;Quando escolho frutas, legumes e verduras, dou preferência para as que são orgânicas.&#x27;,
+  &#x27;Costumo levar algum alimento comigo em caso de sentir fome ao longo do dia.&#x27;,
+  &#x27;Costumo planejar as refeições que farei no dia.&#x27;,
+  &#x27;Costumo variar o consumo de feijão por ervilha, lentilha ou grão de bico.&#x27;,
+  &#x27;Na minha casa é comum usarmos farinha de trigo integral.&#x27;,
+  &#x27;Costumo comer fruta no café da manhã.&#x27;,
+  &#x27;Costumo fazer minhas refeições assentado(a) à mesa.&#x27;,
+  &#x27;Procuro realizar as refeições com calma.&#x27;,
+  &#x27;Costumo participar do preparo dos alimentos na minha casa.&#x27;,
+  &#x27;Na minha casa compartilhamos as tarefas que envolvem o preparo e o consumo das refeições.&#x27;,
+  &#x27;Costumo comprar alimentos em feiras livres ou feiras de rua.&#x27;,
+  &#x27;Aproveito o horário das refeições para resolver outras coisas e acabo deixando de comer.&#x27;,
+  &#x27;Costumo fazer as refeições à minha mesa de trabalho ou estudo.&#x27;,
+  &#x27;Costumo fazer minhas refeições assentado(a) no sofá da sala ou na cama.&#x27;,
+  &#x27;Costumo pular pelo menos uma das refeições principais (almoço ou jantar).&#x27;,
+  &#x27;Costumo comer balas, chocolates e outras guloseimas.&#x27;,
+  &#x27;Costumo beber sucos industrializados, como de caixinha, em pó, garrafa ou lata.&#x27;,
+  &#x27;Costumo frequentar restaurantes fast-food ou lanchonetes.&#x27;,
+  &#x27;Tenho o hábito de “beliscar” no intervalo entre as refeições.&#x27;,
+  &#x27;Costumo beber refrigerante.&#x27;,
+  &#x27;Costumo trocar a comida do almoço ou jantar por sanduíches, salgados ou pizza.&#x27;,
+  &#x27;Quando bebo café ou chá, costumo colocar açúcar.&#x27;
+];
+const options = [&#x27;Nunca&#x27;, &#x27;Raramente&#x27;, &#x27;Muitas vezes&#x27;, &#x27;Sempre&#x27;];
+const byId = (id) =&gt; document.getElementById(id);
+const form = byId(&#x27;questionnaire&#x27;);
+const result = byId(&#x27;result&#x27;);
+const error = byId(&#x27;error&#x27;);
+
+questions.forEach((question, index) =&gt; {
+  const number = index + 1;
+  const field = document.createElement(&#x27;fieldset&#x27;);
+  field.innerHTML = `&lt;legend&gt;&lt;span class=&quot;number&quot;&gt;${String(number).padStart(2, &#x27;0&#x27;)}&lt;/span&gt;${question}&lt;/legend&gt;
+    &lt;div class=&quot;options&quot;&gt;${options.map((option, value) =&gt;
+      `&lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q${number}&quot; value=&quot;${value}&quot;&gt;${option}&lt;/label&gt;`
+    ).join(&#x27;&#x27;)}&lt;/div&gt;`;
+  byId(number &lt;= 16 ? &#x27;block1&#x27; : &#x27;block2&#x27;).append(field);
+});
+
+function updateProgress(count) {
+  byId(&#x27;progress&#x27;).value = count;
+  byId(&#x27;progress-text&#x27;).textContent = `${count} de ${questions.length} respondidas`;
+}
+
+function calculateScore(answers) {
+  return answers.reduce((total, value, index) =&gt; total + (index &lt; 13 ? value : 3 - value), 0);
+}
+
+function classify(score) {
+  if (score &gt;= 42) return {
+    level: &#x27;high&#x27;, label: &#x27;Excelente&#x27;,
+    interpretation: &#x27;Você possui hábitos alimentares muito saudáveis.&#x27;,
+    action: &#x27;Mantenha as boas práticas e busque pequenos ajustes na sua rotina.&#x27;
+  };
+  if (score &gt;= 31) return {
+    level: &#x27;medium&#x27;, label: &#x27;Em evolução&#x27;,
+    interpretation: &#x27;Você está no caminho certo e ainda há espaço para melhorias.&#x27;,
+    action: &#x27;Identifique os itens com menor pontuação e concentre neles seus esforços de mudança.&#x27;
+  };
+  return {
+    level: &#x27;low&#x27;, label: &#x27;Atenção / Necessidade de Mudança&#x27;,
+    interpretation: &#x27;Suas escolhas alimentares pedem mudanças para proteger sua saúde.&#x27;,
+    action: &#x27;Comece com mudanças pequenas e consistentes na sua rotina.&#x27;
+  };
+}
+
+form.addEventListener(&#x27;change&#x27;, () =&gt; {
+  updateProgress(form.querySelectorAll(&#x27;input:checked&#x27;).length);
+  result.hidden = true;
+  error.textContent = &#x27;&#x27;;
+});
+
+form.addEventListener(&#x27;submit&#x27;, (event) =&gt; {
+  event.preventDefault();
+  const data = new FormData(form);
+  const answers = questions.map((_, index) =&gt; data.get(`q${index + 1}`));
+  const missing = answers.indexOf(null);
+  if (missing !== -1) {
+    error.textContent = `Responda todas as perguntas. A primeira pendente é a questão ${missing + 1}.`;
+    form.elements.namedItem(`q${missing + 1}`)[0].focus();
+    return;
+  }
+  error.textContent = &#x27;&#x27;;
+  const score = calculateScore(answers.map(Number));
+  const classification = classify(score);
+  result.dataset.level = classification.level;
+  byId(&#x27;classification&#x27;).textContent = classification.label;
+  byId(&#x27;score&#x27;).textContent = `${score} de 72 pontos`;
+  byId(&#x27;interpretation&#x27;).textContent = classification.interpretation;
+  byId(&#x27;action&#x27;).textContent = classification.action;
+  result.hidden = false;
+  result.focus();
+});
+
+form.addEventListener(&#x27;reset&#x27;, () =&gt; {
+  updateProgress(0);
+  result.hidden = true;
+  error.textContent = &#x27;&#x27;;
+});
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+            </div>
+
             <div id="info" class="tab-content">
                 <div class="section">
                     <h2 class="section-title">📚 Sobre os Indicadores</h2>
 
                     <h3 style="margin-top: 30px; margin-bottom: 15px; color: #333; font-size: 1.3em;">Gordura Corporal</h3>
                     <div class="info-box">
-                        <p><strong>Fórmula utilizada:</strong> Deurenberg et al. (1991)</p>
-                        <p style="margin-top: 10px;">% G = 1,2 (IMC) + 0,23 (idade) - 10,8 (gênero) - 5,4</p>
-                        <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Onde: gênero = 1 para homens e 0 para mulheres</p>
+                        <p><strong>Fórmulas de estimativa do percentual de gordura corporal</strong></p>
+                        <p style="margin-top: 10px;"><strong>Homens:</strong> %GC = 86,010 × log₁₀(Cintura − Pescoço) − 70,041 × log₁₀(Estatura) + 36,76</p>
+                        <p style="margin-top: 10px;"><strong>Mulheres:</strong> %GC = 163,205 × log₁₀(Cintura + Quadril − Pescoço) − 97,684 × log₁₀(Estatura) − 78,387</p>
+                        <p style="margin-top: 10px;">A calculadora recebe as medidas em centímetros e as converte para polegadas antes de aplicar as fórmulas.</p>
                     </div>
 
                     <p style="margin: 20px 0; color: #555; line-height: 1.8;">A gordura corporal representa a proporção de gordura em relação ao peso total do corpo. É um indicador importante de saúde, pois o excesso de gordura está associado a diversas doenças crônicas como diabetes, hipertensão e problemas cardiovasculares.</p>
@@ -635,7 +871,7 @@
                     <p style="margin: 20px 0; color: #555; line-height: 1.8;">O Índice de Relação Cintura-Altura é um indicador de distribuição de gordura corporal, especialmente a gordura abdominal. É considerado um dos melhores preditores de risco cardiometabólico, pois a gordura visceral (abdominal) está fortemente associada a doenças cardiovasculares e metabólicas.</p>
 
                     <h4 style="margin: 20px 0 15px; color: #333; font-weight: 600;">Interpretação dos Resultados</h4>
-                    <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <div style="background: #f6f9f7; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
                         <div style="margin-bottom: 15px; padding: 12px; background: white; border-left: 4px solid #4caf50; border-radius: 4px;">
                             <strong style="color: #2e7d32;">RCA < 0,5:</strong> Risco baixo para doenças metabólicas e cardiovasculares
                         </div>
@@ -702,17 +938,17 @@
                     <h3 style="margin-top: 40px; margin-bottom: 15px; color: #333; font-size: 1.3em;">❓ Perguntas Frequentes (FAQ)</h3>
                     
                     <div style="margin-bottom: 30px;">
-                        <details style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-                            <summary style="padding: 15px; background: #f9f9f9; cursor: pointer; font-weight: 600; color: #333; user-select: none;">O que é Gordura Corporal?</summary>
-                            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; color: #555; line-height: 1.8;">
+                        <details style="margin-bottom: 20px; border: 1px solid #d8e5df; border-radius: 8px; overflow: hidden;">
+                            <summary style="padding: 15px; background: #f6f9f7; cursor: pointer; font-weight: 600; color: #333; user-select: none;">O que é Gordura Corporal?</summary>
+                            <div style="padding: 15px; background: white; border-top: 1px solid #d8e5df; color: #555; line-height: 1.8;">
                                 <p>A <strong>gordura corporal</strong> é a proporção de gordura em relação ao peso total do corpo. É um indicador importante de saúde, pois o excesso de gordura está associado a diversas doenças crônicas como diabetes tipo 2, hipertensão arterial, doenças cardiovasculares e síndrome metabólica.</p>
-                                <p style="margin-top: 10px;">A fórmula utilizada nesta calculadora (Deurenberg et al., 1991) estima a gordura corporal com base no IMC, idade e gênero. Embora seja uma estimativa, é útil para triagem e acompanhamento geral da saúde.</p>
+                                <p style="margin-top: 10px;">A calculadora estima a gordura corporal a partir da estatura e das circunferências da cintura e do pescoço. Para mulheres, a equação também inclui a circunferência do quadril.</p>
                             </div>
                         </details>
 
-                        <details style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-                            <summary style="padding: 15px; background: #f9f9f9; cursor: pointer; font-weight: 600; color: #333; user-select: none;">O que é o Índice de Relação Cintura-Altura (RCA)?</summary>
-                            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; color: #555; line-height: 1.8;">
+                        <details style="margin-bottom: 20px; border: 1px solid #d8e5df; border-radius: 8px; overflow: hidden;">
+                            <summary style="padding: 15px; background: #f6f9f7; cursor: pointer; font-weight: 600; color: #333; user-select: none;">O que é o Índice de Relação Cintura-Altura (RCA)?</summary>
+                            <div style="padding: 15px; background: white; border-top: 1px solid #d8e5df; color: #555; line-height: 1.8;">
                                 <p>O <strong>Índice de Relação Cintura-Altura (RCA)</strong> é um indicador de distribuição de gordura corporal, especialmente a gordura abdominal (visceral). É calculado dividindo a circunferência da cintura pela altura.</p>
                                 <p style="margin-top: 10px;">O RCA é considerado um dos melhores preditores de risco cardiometabólico, pois a gordura visceral (aquela que fica ao redor dos órgãos internos) está fortemente associada a doenças cardiovasculares e metabólicas, independentemente do IMC.</p>
                                 <p style="margin-top: 10px;"><strong>Valores de referência:</strong></p>
@@ -723,9 +959,9 @@
                             </div>
                         </details>
 
-                        <details style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-                            <summary style="padding: 15px; background: #f9f9f9; cursor: pointer; font-weight: 600; color: #333; user-select: none;">O que é o IPAQ e por que é importante?</summary>
-                            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; color: #555; line-height: 1.8;">
+                        <details style="margin-bottom: 20px; border: 1px solid #d8e5df; border-radius: 8px; overflow: hidden;">
+                            <summary style="padding: 15px; background: #f6f9f7; cursor: pointer; font-weight: 600; color: #333; user-select: none;">O que é o IPAQ e por que é importante?</summary>
+                            <div style="padding: 15px; background: white; border-top: 1px solid #d8e5df; color: #555; line-height: 1.8;">
                                 <p>O <strong>IPAQ (Questionário Internacional de Atividade Física)</strong> é um instrumento padronizado internacionalmente para avaliar o nível de atividade física de indivíduos. Ele foi desenvolvido para permitir comparações consistentes de atividade física entre diferentes populações e países.</p>
                                 <p style="margin-top: 10px;"><strong>Por que é importante?</strong></p>
                                 <ul style="margin-left: 20px; margin-top: 8px;">
@@ -736,18 +972,18 @@
                             </div>
                         </details>
 
-                        <details style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-                            <summary style="padding: 15px; background: #f9f9f9; cursor: pointer; font-weight: 600; color: #333; user-select: none;">Qual é a diferença entre atividade vigorosa, moderada e caminhada?</summary>
-                            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; color: #555; line-height: 1.8;">
+                        <details style="margin-bottom: 20px; border: 1px solid #d8e5df; border-radius: 8px; overflow: hidden;">
+                            <summary style="padding: 15px; background: #f6f9f7; cursor: pointer; font-weight: 600; color: #333; user-select: none;">Qual é a diferença entre atividade vigorosa, moderada e caminhada?</summary>
+                            <div style="padding: 15px; background: white; border-top: 1px solid #d8e5df; color: #555; line-height: 1.8;">
                                 <p><strong>Atividade Vigorosa:</strong> Atividades que aumentam significativamente a frequência cardíaca e deixam você ofegante. Exemplos: corrida, futebol, natação rápida, ciclismo intenso.</p>
                                 <p style="margin-top: 10px;"><strong>Atividade Moderada:</strong> Atividades que aumentam moderadamente a frequência cardíaca e deixam você um pouco ofegante. Exemplos: caminhada rápida, dança, ciclismo leve, limpeza pesada da casa.</p>
                                 <p style="margin-top: 10px;"><strong>Caminhada:</strong> Deslocamento a pé em ritmo normal. Exemplos: caminhar para o trabalho, caminhar no parque, caminhar para fazer compras.</p>
                             </div>
                         </details>
 
-                        <details style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-                            <summary style="padding: 15px; background: #f9f9f9; cursor: pointer; font-weight: 600; color: #333; user-select: none;">Qual é a importância de manter um nível adequado de atividade física?</summary>
-                            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; color: #555; line-height: 1.8;">
+                        <details style="margin-bottom: 20px; border: 1px solid #d8e5df; border-radius: 8px; overflow: hidden;">
+                            <summary style="padding: 15px; background: #f6f9f7; cursor: pointer; font-weight: 600; color: #333; user-select: none;">Qual é a importância de manter um nível adequado de atividade física?</summary>
+                            <div style="padding: 15px; background: white; border-top: 1px solid #d8e5df; color: #555; line-height: 1.8;">
                                 <p>Manter um nível adequado de atividade física traz diversos benefícios para a saúde:</p>
                                 <ul style="margin-left: 20px; margin-top: 8px;">
                                     <li><strong>Saúde Cardiovascular:</strong> Reduz o risco de doenças do coração e acidente vascular cerebral.</li>
@@ -760,18 +996,18 @@
                             </div>
                         </details>
 
-                        <details style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-                            <summary style="padding: 15px; background: #f9f9f9; cursor: pointer; font-weight: 600; color: #333; user-select: none;">Como interpretar meus resultados?</summary>
-                            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; color: #555; line-height: 1.8;">
+                        <details style="margin-bottom: 20px; border: 1px solid #d8e5df; border-radius: 8px; overflow: hidden;">
+                            <summary style="padding: 15px; background: #f6f9f7; cursor: pointer; font-weight: 600; color: #333; user-select: none;">Como interpretar meus resultados?</summary>
+                            <div style="padding: 15px; background: white; border-top: 1px solid #d8e5df; color: #555; line-height: 1.8;">
                                 <p><strong>Gordura Corporal:</strong> Compare seu resultado com a faixa de referência para sua idade e gênero. Se estiver dentro da faixa, está saudável. Se estiver acima, considere aumentar a atividade física e revisar sua alimentação.</p>
                                 <p style="margin-top: 10px;"><strong>RCA:</strong> Se for menor que 0,5, você tem risco baixo. Se for maior ou igual a 0,5, você tem risco elevado e deve consultar um profissional de saúde.</p>
                                 <p style="margin-top: 10px;"><strong>IPAQ (NAF):</strong> Se for "Muito Ativo" ou "Ativo", você está praticando atividade física suficiente. Se for "Irregularmente Ativo" ou "Sedentário", você deve aumentar sua atividade física.</p>
                             </div>
                         </details>
 
-                        <details style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-                            <summary style="padding: 15px; background: #f9f9f9; cursor: pointer; font-weight: 600; color: #333; user-select: none;">Essa calculadora substitui uma avaliação profissional?</summary>
-                            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0; color: #555; line-height: 1.8;">
+                        <details style="margin-bottom: 20px; border: 1px solid #d8e5df; border-radius: 8px; overflow: hidden;">
+                            <summary style="padding: 15px; background: #f6f9f7; cursor: pointer; font-weight: 600; color: #333; user-select: none;">Essa calculadora substitui uma avaliação profissional?</summary>
+                            <div style="padding: 15px; background: white; border-top: 1px solid #d8e5df; color: #555; line-height: 1.8;">
                                 <p><strong>Não.</strong> Esta calculadora é uma ferramenta educacional de triagem. Ela não substitui a avaliação de um profissional de saúde qualificado. Os resultados devem ser interpretados em conjunto com outras informações clínicas, laboratoriais e avaliações físicas realizadas por um médico, nutricionista ou educador físico.</p>
                                 <p style="margin-top: 10px;">Se você tiver preocupações com sua saúde ou seus resultados, consulte um profissional de saúde.</p>
                             </div>
@@ -788,6 +1024,17 @@
     </div>
 
     <script>
+        const foodFrame = document.getElementById('questionario-alimentacao');
+        foodFrame.addEventListener('load', () => {
+            const foodBody = foodFrame.contentDocument.body;
+            const resizeFoodFrame = () => {
+                const height = Math.ceil(foodBody.getBoundingClientRect().height);
+                if (height > 0) foodFrame.style.height = height + 'px';
+            };
+            new ResizeObserver(resizeFoodFrame).observe(foodBody);
+            resizeFoodFrame();
+        });
+
         function switchTab(tabName) {
             // Esconder todos os conteúdos
             const contents = document.querySelectorAll('.tab-content');
@@ -825,8 +1072,26 @@
             // Cálculos
             const heightM = height / 100;
             const imc = weight / (heightM * heightM);
-            const genderValue = gender === 'male' ? 1 : 0;
-            const fatPercentage = 1.2 * imc + 0.23 * age - 10.8 * genderValue - 5.4;
+            const neck = parseFloat(document.getElementById('neck').value);
+            const hip = parseFloat(document.getElementById('hip').value);
+            const isFemale = gender === 'female';
+
+            if (!(neck > 0) || (isFemale && !(hip > 0))) {
+                alert(isFemale ? 'Informe medidas positivas para pescoço e quadril.' : 'Informe uma medida positiva para o pescoço.');
+                return;
+            }
+
+            const circumference = waist + (isFemale ? hip : 0) - neck;
+            if (!(height > 0) || !(waist > 0) || !(circumference > 0)) {
+                alert('Confira a estatura e as circunferências. O valor dentro do logaritmo deve ser positivo.');
+                return;
+            }
+
+            const heightLog = Math.log10(height / 2.54);
+            const circumferenceLog = Math.log10(circumference / 2.54);
+            const fatPercentage = isFemale
+                ? 163.205 * circumferenceLog - 97.684 * heightLog - 78.387
+                : 86.010 * circumferenceLog - 70.041 * heightLog + 36.76;
             const rca = waist / height;
 
             // Exibir resultados
